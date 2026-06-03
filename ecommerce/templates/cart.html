@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Shopping Cart</h1>
+<br>
+<table>
+    <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Action</th>
+    </tr>
+
+    {% for item in items %}
+    <tr>
+
+        <td>{{ item.product.name }}</td>
+
+        <td>₹{{ item.product.price }}</td>
+
+        <td>
+            <div class="qty-box">
+
+                <a href="{% url 'decrease' item.id %}" class="qty-btn">
+                    -
+                </a>
+
+                <span class="qty-number">
+                    {{ item.quantity }}
+                </span>
+
+                <a href="{% url 'increase' item.id %}" class="qty-btn">
+                    +
+                </a>
+
+            </div>
+        </td>
+
+        <td>
+            <a href="{% url 'remove_cart' item.id %}" class="btn remove-btn">
+                Remove
+            </a>
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<h2 class="total-price">
+    Total : ₹{{ total }}
+</h2>
+<br>
+<div class="cart-buttons">
+
+    <a href="{% url 'checkout' %}" class="btn">
+        Place Order
+    </a>
+ <br>
+     
+</div>
+<br>
+<a href="{% url 'home' %}" class="btn">
+        Continue Shopping
+    </a>
+
+{% endblock %}
